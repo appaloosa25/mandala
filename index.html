@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mandala — Urban Planning Publication</title>
+  <meta name="description" content="Mandala is an independent publication on urban planning, housing policy, transport, and the built environment across South Asia and beyond." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='none' stroke='%233D4F7C' stroke-width='2'/><circle cx='16' cy='16' r='9' fill='none' stroke='%233D4F7C' stroke-width='1.5'/><circle cx='16' cy='16' r='4' fill='%233D4F7C'/></svg>" />
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────────────────────────── -->
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Mandala home">
+      <svg class="logo-mark" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="14" cy="14" r="12.5" stroke="#3D4F7C" stroke-width="1.5"/>
+        <circle cx="14" cy="14" r="8" stroke="#3D4F7C" stroke-width="1"/>
+        <circle cx="14" cy="14" r="4" stroke="#3D4F7C" stroke-width="1"/>
+        <circle cx="14" cy="14" r="1.5" fill="#3D4F7C"/>
+        <line x1="14" y1="1.5" x2="14" y2="5" stroke="#3D4F7C" stroke-width="1"/>
+        <line x1="14" y1="23" x2="14" y2="26.5" stroke="#3D4F7C" stroke-width="1"/>
+        <line x1="1.5" y1="14" x2="5" y2="14" stroke="#3D4F7C" stroke-width="1"/>
+        <line x1="23" y1="14" x2="26.5" y2="14" stroke="#3D4F7C" stroke-width="1"/>
+      </svg>
+      <span class="logo-text">Mandala</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"
+      onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='true'?'false':'true'); document.getElementById('nav-links').classList.toggle('open');">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links" role="list">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="articles.html">Articles</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Submit</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────────────── -->
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Independent urban research</p>
+      <h1 id="hero-heading">Ideas that <em>shape</em> cities</h1>
+      <p class="hero-lead">Mandala publishes original research, policy analysis, and field reports on urban planning, housing, transport, and the built environment — with a focus on South Asian cities.</p>
+      <div class="hero-actions">
+        <a href="articles.html" class="btn-primary">Read the latest</a>
+        <a href="about.html" class="btn-secondary">About the journal</a>
+      </div>
+    </div>
+    <div class="hero-motif" aria-hidden="true">
+      <svg viewBox="0 0 300 300" width="300" height="300" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="150" cy="150" r="140" stroke="#3D4F7C" stroke-width="1"/>
+        <circle cx="150" cy="150" r="110" stroke="#3D4F7C" stroke-width="1"/>
+        <circle cx="150" cy="150" r="80" stroke="#3D4F7C" stroke-width="1"/>
+        <circle cx="150" cy="150" r="55" stroke="#3D4F7C" stroke-width="1.5"/>
+        <circle cx="150" cy="150" r="32" stroke="#3D4F7C" stroke-width="1.5"/>
+        <circle cx="150" cy="150" r="12" fill="#3D4F7C"/>
+        <!-- Cardinal spokes -->
+        <line x1="150" y1="10" x2="150" y2="290" stroke="#3D4F7C" stroke-width="0.5"/>
+        <line x1="10" y1="150" x2="290" y2="150" stroke="#3D4F7C" stroke-width="0.5"/>
+        <!-- Diagonal spokes -->
+        <line x1="51" y1="51" x2="249" y2="249" stroke="#3D4F7C" stroke-width="0.5"/>
+        <line x1="249" y1="51" x2="51" y2="249" stroke="#3D4F7C" stroke-width="0.5"/>
+        <!-- Tick marks on outer ring -->
+        <circle cx="150" cy="11" r="3" fill="#3D4F7C"/>
+        <circle cx="150" cy="289" r="3" fill="#3D4F7C"/>
+        <circle cx="11" cy="150" r="3" fill="#3D4F7C"/>
+        <circle cx="289" cy="150" r="3" fill="#3D4F7C"/>
+        <circle cx="51" cy="51" r="2.5" fill="#3D4F7C"/>
+        <circle cx="249" cy="51" r="2.5" fill="#3D4F7C"/>
+        <circle cx="51" cy="249" r="2.5" fill="#3D4F7C"/>
+        <circle cx="249" cy="249" r="2.5" fill="#3D4F7C"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ── CURRENT ISSUE BAND ───────────────────────────────── -->
+<div class="issue-band">
+  <div class="issue-band-inner">
+    <span class="issue-band-label">Current focus</span>
+    <span class="issue-band-title">Vol. 1 &nbsp;·&nbsp; The Density Question: Compact cities vs. sprawl in post-pandemic India</span>
+    <a href="articles.html" class="issue-band-link">View all articles →</a>
+  </div>
+</div>
+
+<!-- ── FEATURED ARTICLES ────────────────────────────────── -->
+<section class="section" aria-labelledby="featured-label">
+  <div class="section-header">
+    <div>
+      <p class="section-label" id="featured-label">Featured</p>
+      <h2 class="section-title">Recent articles</h2>
+    </div>
+    <a href="articles.html" class="section-link">All articles →</a>
+  </div>
+
+  <div class="article-grid">
+
+    <!-- Feature card -->
+    <article class="article-card feature">
+      <div class="feature-img-placeholder">Urban India</div>
+      <p class="article-card-meta">Housing &nbsp;·&nbsp; Feature</p>
+      <h3><a href="articles/informal-tenure.html">The tenure paradox: Why formalising informal settlements often makes housing less affordable</a></h3>
+      <p>Regularisation programmes across Delhi, Mumbai, and Chennai have sought to bring informal colonies into the legal fold. But evidence from three decades of implementation reveals a troubling pattern: the act of granting title frequently triggers speculative pressure that displaces the very residents it was meant to protect.</p>
+      <div class="article-card-footer">
+        <span class="article-card-author">Priya Venkataraman</span>
+        <a href="articles/informal-tenure.html" class="read-more">Read →</a>
+      </div>
+    </article>
+
+    <!-- Regular card -->
+    <article class="article-card">
+      <p class="article-card-meta">Transport</p>
+      <h3><a href="articles/bus-priority.html">Bus priority lanes in Indian cities: a decade of incomplete implementation</a></h3>
+      <p>Despite policy commitment from central and state governments, fewer than 12% of notified bus priority corridors in Tier-1 cities are operational. This analysis traces the institutional and political barriers.</p>
+      <div class="article-card-footer">
+        <span class="article-card-author">Arjun Mehta</span>
+        <a href="articles/bus-priority.html" class="read-more">Read →</a>
+      </div>
+    </article>
+
+    <article class="article-card">
+      <p class="article-card-meta">Urban Policy</p>
+      <h3><a href="articles/floor-area-ratio.html">Floor area ratio as an instrument of equity: lessons from Singapore and Seoul</a></h3>
+      <p>How two Asian city-states used FAR regulation not merely as a density control but as an active redistribution mechanism — and what Indian planners could learn from this approach.</p>
+      <div class="article-card-footer">
+        <span class="article-card-author">Ritesh Choudhary</span>
+        <a href="articles/floor-area-ratio.html" class="read-more">Read →</a>
+      </div>
+    </article>
+
+    <article class="article-card">
+      <p class="article-card-meta">Climate & Cities</p>
+      <h3><a href="articles/heat-island.html">Mapping urban heat islands in NCR: a ward-level analysis</a></h3>
+      <p>Using satellite thermal data and census socio-economic indicators, this study maps heat island intensity against income quintiles across 1,800 NCR wards — revealing a stark pattern of thermal inequity.</p>
+      <div class="article-card-footer">
+        <span class="article-card-author">Sunita Rao &amp; Vikram Singh</span>
+        <a href="articles/heat-island.html" class="read-more">Read →</a>
+      </div>
+    </article>
+
+    <article class="article-card">
+      <p class="article-card-meta">Housing</p>
+      <h3><a href="articles/rental-market.html">Why India's rental housing market has never recovered from rent control</a></h3>
+      <p>Enacted in the 1940s as a wartime emergency measure, rent control persists in amended forms across most Indian states. Its long-term effects on rental supply are now well-documented — but repeal has proved politically impossible.</p>
+      <div class="article-card-footer">
+        <span class="article-card-author">Deepa Krishnan</span>
+        <a href="articles/rental-market.html" class="read-more">Read →</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ── ABOUT STRIP ───────────────────────────────────────── -->
+<div class="about-strip" aria-label="About Mandala">
+  <div class="about-strip-inner">
+    <div>
+      <h2>A journal built on the idea that urban planning needs better ideas</h2>
+      <p>Mandala publishes peer-reviewed research, policy commentary, and field-based analysis. We are independent, open-access, and committed to rigorous work that is readable beyond the academy.</p>
+      <a href="about.html" class="btn-primary">About the publication</a>
+    </div>
+    <div class="stat-row">
+      <div class="stat-item">
+        <p class="stat-num">34</p>
+        <p class="stat-desc">Articles published across four thematic areas</p>
+      </div>
+      <div class="stat-item">
+        <p class="stat-num">18</p>
+        <p class="stat-desc">Contributing researchers from seven institutions</p>
+      </div>
+      <div class="stat-item">
+        <p class="stat-num">Open</p>
+        <p class="stat-desc">All content freely available under CC BY 4.0</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ────────────────────────────────────────────── -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="nav-logo">
+        <svg class="logo-mark" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <circle cx="14" cy="14" r="12.5" stroke="#C9BEA8" stroke-width="1.5"/>
+          <circle cx="14" cy="14" r="8" stroke="#C9BEA8" stroke-width="1"/>
+          <circle cx="14" cy="14" r="4" stroke="#C9BEA8" stroke-width="1"/>
+          <circle cx="14" cy="14" r="1.5" fill="#C9BEA8"/>
+        </svg>
+        <span class="logo-text">Mandala</span>
+      </div>
+      <p>An independent urban planning publication exploring cities, policy, and the built environment across South Asia and beyond.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Sections</h4>
+      <ul>
+        <li><a href="articles.html">Urban Policy</a></li>
+        <li><a href="articles.html">Housing</a></li>
+        <li><a href="articles.html">Transport</a></li>
+        <li><a href="articles.html">Climate &amp; Cities</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Publication</h4>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Submit an article</a></li>
+        <li><a href="contact.html">Subscribe</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Mandala. Published under Creative Commons CC BY 4.0.</p>
+    <p>Built with plain HTML &amp; CSS.</p>
+  </div>
+</footer>
+
+</body>
+</html>

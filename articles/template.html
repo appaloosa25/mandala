@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!--
+    ARTICLE TEMPLATE — Instructions
+    ================================
+    1. Copy this file to /articles/your-article-slug.html
+    2. Fill in all the [PLACEHOLDER] values below
+    3. Replace the body content between the <article> tags
+    4. Add a link to this page in articles.html (see that file for instructions)
+    5. Done — no build step needed
+  -->
+  <title>[ARTICLE TITLE] — Mandala</title>
+  <meta name="description" content="[150-character description of the article for search engines and social sharing.]" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/article.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='none' stroke='%233D4F7C' stroke-width='2'/><circle cx='16' cy='16' r='9' fill='none' stroke='%233D4F7C' stroke-width='1.5'/><circle cx='16' cy='16' r='4' fill='%233D4F7C'/></svg>" />
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────────────────────────── -->
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo" aria-label="Mandala home">
+      <svg class="logo-mark" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <circle cx="14" cy="14" r="12.5" stroke="#3D4F7C" stroke-width="1.5"/>
+        <circle cx="14" cy="14" r="8" stroke="#3D4F7C" stroke-width="1"/>
+        <circle cx="14" cy="14" r="4" stroke="#3D4F7C" stroke-width="1"/>
+        <circle cx="14" cy="14" r="1.5" fill="#3D4F7C"/>
+        <line x1="14" y1="1.5" x2="14" y2="5" stroke="#3D4F7C" stroke-width="1"/>
+        <line x1="14" y1="23" x2="14" y2="26.5" stroke="#3D4F7C" stroke-width="1"/>
+        <line x1="1.5" y1="14" x2="5" y2="14" stroke="#3D4F7C" stroke-width="1"/>
+        <line x1="23" y1="14" x2="26.5" y2="14" stroke="#3D4F7C" stroke-width="1"/>
+      </svg>
+      <span class="logo-text">Mandala</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"
+      onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='true'?'false':'true'); document.getElementById('nav-links').classList.toggle('open');">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links" role="list">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../articles.html" class="active">Articles</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../contact.html" class="nav-cta">Submit</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── ARTICLE HEADER ───────────────────────────────────── -->
+<header class="art-header">
+  <div class="art-header-inner">
+    <a href="../articles.html" class="art-back">← All articles</a>
+    <p class="art-tag">[THEME — e.g. Housing / Transport / Urban Policy / Climate & Cities]</p>
+    <h1 class="art-title">[Full article title goes here]</h1>
+    <p class="art-abstract">[Abstract / lead paragraph — 2–3 sentences summarising the article's argument and significance. This appears prominently below the title.]</p>
+    <div class="art-meta">
+      <span class="art-author">[Author Name]</span>
+      <span class="art-separator">·</span>
+      <span>[Institutional affiliation]</span>
+      <span class="art-separator">·</span>
+      <time datetime="2025-06-01">[Month Year]</time>
+      <span class="art-separator">·</span>
+      <span>[X] min read</span>
+    </div>
+  </div>
+</header>
+
+<!-- ── ARTICLE BODY ─────────────────────────────────────── -->
+<div class="art-layout">
+  <main class="art-body" id="article-content">
+
+    <!--
+      WRITING YOUR ARTICLE
+      ====================
+      Use standard HTML elements. The article.css file styles them automatically.
+
+      Headings:       <h2>, <h3>
+      Paragraphs:     <p>
+      Emphasis:       <strong>, <em>
+      Blockquote:     <blockquote><p>...</p><cite>Source</cite></blockquote>
+      Figures:        <figure><img ...><figcaption>...</figcaption></figure>
+      Footnotes:      Use <sup><a href="#fn1" id="ref1">1</a></sup> inline,
+                      then <ol class="footnotes"> at bottom of article
+      Pull quote:     <aside class="pull-quote"><p>...</p></aside>
+      Data table:     <table class="data-table">...</table>
+    -->
+
+    <p>[Opening paragraph. Start with a concrete situation, observation, or finding that draws the reader in. Do not begin with throat-clearing or broad statements about urbanisation. The first paragraph should make the reader want to read the second.]</p>
+
+    <h2>[Section heading]</h2>
+
+    <p>[Body text. Write in full paragraphs. Use sub-headings to break up long sections, not to replace prose transitions. Each paragraph should carry one idea forward.]</p>
+
+    <blockquote>
+      <p>[A key finding, striking statistic, or quoted source that deserves emphasis.]</p>
+      <cite>[Source, Author, Year]</cite>
+    </blockquote>
+
+    <h2>[Section heading]</h2>
+
+    <p>[Continue article body...]</p>
+
+    <h2>Conclusions</h2>
+
+    <p>[Closing section. State what the evidence shows, what it implies for policy or practice, and what questions remain open. Avoid hedging everything into meaninglessness — good research has a position.]</p>
+
+    <!-- Footnotes -->
+    <hr class="art-rule" />
+    <ol class="footnotes" aria-label="Footnotes">
+      <li id="fn1"><a href="#ref1" aria-label="Return to footnote 1 in text">↑</a> [Footnote text here. Use for citations, clarifications, or extended comments that would interrupt the flow of the main text.]</li>
+    </ol>
+
+  </main>
+
+  <!-- Sidebar -->
+  <aside class="art-sidebar" aria-label="Article information">
+    <div class="sidebar-card">
+      <h4>About the author</h4>
+      <p>[Author bio — 50–80 words. Where they are based, institutional affiliation, research focus, and any relevant disclosure of interest.]</p>
+    </div>
+    <div class="sidebar-card">
+      <h4>Keywords</h4>
+      <ul class="focus-list">
+        <li>[Keyword 1]</li>
+        <li>[Keyword 2]</li>
+        <li>[Keyword 3]</li>
+        <li>[Keyword 4]</li>
+        <li>[Keyword 5]</li>
+      </ul>
+    </div>
+    <div class="sidebar-card">
+      <h4>Cite this article</h4>
+      <p style="font-size:0.8rem;line-height:1.5;font-style:italic;">[Author Surname, Initial]. ([Year]). [Article title]. <em>Mandala</em>. mandalajournal.in/articles/[slug].html</p>
+    </div>
+    <div class="sidebar-card">
+      <h4>Licence</h4>
+      <p>This article is published under <a href="https://creativecommons.org/licenses/by/4.0/" style="color:#3D4F7C;">Creative Commons CC BY 4.0</a>. You may share and adapt with attribution.</p>
+    </div>
+  </aside>
+</div>
+
+<!-- ── FOOTER ────────────────────────────────────────────── -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="nav-logo">
+        <svg class="logo-mark" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <circle cx="14" cy="14" r="12.5" stroke="#C9BEA8" stroke-width="1.5"/>
+          <circle cx="14" cy="14" r="8" stroke="#C9BEA8" stroke-width="1"/>
+          <circle cx="14" cy="14" r="4" stroke="#C9BEA8" stroke-width="1"/>
+          <circle cx="14" cy="14" r="1.5" fill="#C9BEA8"/>
+        </svg>
+        <span class="logo-text">Mandala</span>
+      </div>
+      <p>An independent urban planning publication exploring cities, policy, and the built environment across South Asia and beyond.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Sections</h4>
+      <ul>
+        <li><a href="../articles.html">Urban Policy</a></li>
+        <li><a href="../articles.html">Housing</a></li>
+        <li><a href="../articles.html">Transport</a></li>
+        <li><a href="../articles.html">Climate &amp; Cities</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Publication</h4>
+      <ul>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Submit an article</a></li>
+        <li><a href="../contact.html">Subscribe</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Mandala. Published under Creative Commons CC BY 4.0.</p>
+    <p>Built with plain HTML &amp; CSS.</p>
+  </div>
+</footer>
+
+</body>
+</html>
