@@ -13,11 +13,11 @@
     .ncr-overview { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; margin-bottom: 1.5rem; }
     .ncr-stat { background: var(--white); border: 1px solid #e8e8e8; border-radius: 8px; padding: 12px 14px; }
     .ncr-stat-label { font-size: 15px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
-    .ncr-stat-val { font-size: 20px; font-weight: 600; color: var(--ink); }
+    .ncr-stat-val { font-size: 17px; font-weight: 600; color: var(--ink); }
     .ncr-stat-sub { font-size: 15px; color: var(--ink-muted); margin-top: 2px; }
     .ncr-filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 0.75rem; align-items: center; padding: 1rem 0 0.5rem; border-top: 1px solid #e8e8e8; }
-    .ncr-filters label { font-size: 12px; color: var(--ink-muted); margin-right: 2px; }
-    .ncr-filter-btn { font-size: 12px; padding: 5px 12px; border: 1px solid #ddd; border-radius: 8px; background: var(--white); color: var(--ink-soft); cursor: pointer; transition: all 0.15s; }
+    .ncr-filters label { font-size: 17px; color: var(--ink-muted); margin-right: 2px; }
+    .ncr-filter-btn { font-size: 17px; padding: 7px 16px; border: 1px solid #ddd; border-radius: 8px; background: var(--white); color: var(--ink-soft); cursor: pointer; transition: all 0.15s; }
     .ncr-filter-btn:hover { background: var(--canvas); }
     .ncr-filter-btn.on { background: #EEEDFE; border-color: #AFA9EC; color: #3C3489; font-weight: 600; }
     .ncr-sep { width: 1px; background: #e8e8e8; margin: 0 4px; display: inline-block; height: 14px; vertical-align: middle; }
@@ -288,13 +288,13 @@ function render(){
     const pBarW=Math.round((r.pop/maxPop)*100);
     const aBarW=Math.round((r.area/maxArea)*100);
     return`<tr>
-      <td style="color:#bbb;font-size:11px">${i+1}</td>
+      <td style="color:#bbb;font-size:17px">${i+1}</td>
       <td style="font-weight:600;min-width:130px">${r.city}</td>
       <td><span class="state-pill ${stateClass(r.state)}">${r.state}</span></td>
-      <td style="white-space:nowrap"><div style="display:flex;align-items:center;gap:3px"><div class="pop-bar"><div class="pop-fill" style="width:${pBarW}%"></div></div><span style="font-variant-numeric:tabular-nums;font-size:12px">${fmtPop(r.pop)}</span></div></td>
-      <td style="white-space:nowrap"><div style="display:flex;align-items:center;gap:3px"><div class="area-bar"><div class="area-fill" style="width:${aBarW}%"></div></div><span style="font-variant-numeric:tabular-nums;font-size:12px;font-weight:500">${fmtArea(r.area)}</span></div><div class="area-note">${r.area_note}</div></td>
-      <td style="white-space:nowrap"><span class="dist-val">${r.dist} km</span><span class="dist-zone ${zoneClass(r.dist)}">${zoneLabel(r.dist)}</span><div style="font-size:10px;color:#aaa;margin-top:1px">${r.dist_note}</div></td>
-      <td style="font-size:12px;white-space:nowrap">${r.origin}</td>
+      <td style="white-space:nowrap"><div style="display:flex;align-items:center;gap:3px"><div class="pop-bar"><div class="pop-fill" style="width:${pBarW}%"></div></div><span style="font-variant-numeric:tabular-nums;font-size:17px">${fmtPop(r.pop)}</span></div></td>
+      <td style="white-space:nowrap"><div style="display:flex;align-items:center;gap:3px"><div class="area-bar"><div class="area-fill" style="width:${aBarW}%"></div></div><span style="font-variant-numeric:tabular-nums;font-size:17px;font-weight:500">${fmtArea(r.area)}</span></div><div class="area-note">${r.area_note}</div></td>
+      <td style="white-space:nowrap"><span class="dist-val">${r.dist} km</span><span class="dist-zone ${zoneClass(r.dist)}">${zoneLabel(r.dist)}</span><div style="font-size:15px;color:#aaa;margin-top:1px">${r.dist_note}</div></td>
+      <td style="font-size:17px;white-space:nowrap">${r.origin}</td>
       <td><span class="era ${r.era}">${eraLabel(r.era)}</span></td>
       <td class="note-cell">${r.note}</td>
     </tr>`;
