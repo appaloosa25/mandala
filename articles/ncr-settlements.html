@@ -15,7 +15,8 @@
     .ncr-stat-label { font-size: 15px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
     .ncr-stat-val { font-size: 17px; font-weight: 600; color: var(--ink); }
     .ncr-stat-sub { font-size: 15px; color: var(--ink-muted); margin-top: 2px; }
-    .ncr-filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 0.75rem; align-items: center; padding: 1rem 0 0.5rem; border-top: 1px solid #e8e8e8; }
+    .ncr-filters { display: flex; flex-direction: column; gap: 10px; margin-bottom: 0.75rem; padding: 1rem 0 0.5rem; border-top: 1px solid #e8e8e8; }
+    .ncr-filter-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
     .ncr-filters label { font-size: 17px; color: var(--ink-muted); margin-right: 2px; }
     .ncr-filter-btn { font-size: 17px; padding: 7px 16px; border: 1px solid #ddd; border-radius: 8px; background: var(--white); color: var(--ink-soft); cursor: pointer; transition: all 0.15s; }
     .ncr-filter-btn:hover { background: var(--canvas); }
@@ -134,20 +135,27 @@
 
     <!-- Filters -->
     <div class="ncr-filters" id="filters">
-      <label>State:</label>
-      <button class="ncr-filter-btn on" data-state="all">All</button>
-      <button class="ncr-filter-btn" data-state="Delhi">Delhi</button>
-      <button class="ncr-filter-btn" data-state="Haryana">Haryana</button>
-      <button class="ncr-filter-btn" data-state="UP">Uttar Pradesh</button>
-      <button class="ncr-filter-btn" data-state="Rajasthan">Rajasthan</button>
-      <span class="ncr-sep"></span>
-      <label>Zone:</label>
-      <button class="ncr-filter-btn" data-zone="1">&lt;30 km</button>
-      <button class="ncr-filter-btn" data-zone="2">30–60 km</button>
-      <button class="ncr-filter-btn" data-zone="3">60–100 km</button>
-      <button class="ncr-filter-btn" data-zone="4">&gt;100 km</button>
+    
+    <div class="ncr-filter-row">
+    <label>State:</label>
+    <button class="ncr-filter-btn on" data-state="all">All</button>
+    <button class="ncr-filter-btn" data-state="Delhi">Delhi</button>
+    <button class="ncr-filter-btn" data-state="Haryana">Haryana</button>
+    <button class="ncr-filter-btn" data-state="UP">Uttar Pradesh</button>
+    <button class="ncr-filter-btn" data-state="Rajasthan">Rajasthan</button>
     </div>
+    
+    <div class="ncr-filter-row">
+    <label>Zone:</label>
+    <button class="ncr-filter-btn" data-zone="1">&lt;30 km</button>
+    <button class="ncr-filter-btn" data-zone="2">30–60 km</button>
+    <button class="ncr-filter-btn" data-zone="3">60–100 km</button>
+    <button class="ncr-filter-btn" data-zone="4">&gt;100 km</button>
+    </div>
+      
+</div>
 
+    
     <div class="ncr-count" id="count-row">Showing all 26 major settlements · click column headers to sort</div>
 
     <!-- Table -->
