@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NCR Settlements: Size, Population & Distance from Rajiv Chowk — Mandala</title>
+  <meta name="description" content="An interactive reference table of all 26 major towns and cities in the National Capital Region, with population, city area, distance from Rajiv Chowk, historical origin, and era classification." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='none' stroke='%233D4F7C' stroke-width='2'/><circle cx='16' cy='16' r='9' fill='none' stroke='%233D4F7C' stroke-width='1.5'/><circle cx='16' cy='16' r='4' fill='%233D4F7C'/></svg>" />
+  <style>
+    /* ── Scoped table styles ── */
+    .ncr-wrap { max-width: 1100px; margin-inline: auto; padding-inline: 2rem; padding-bottom: 5rem; }
+    .ncr-overview { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; margin-bottom: 1.5rem; }
+    .ncr-stat { background: var(--white); border: 1px solid #e8e8e8; border-radius: 8px; padding: 12px 14px; }
+    .ncr-stat-label { font-size: 11px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+    .ncr-stat-val { font-size: 20px; font-weight: 600; color: var(--ink); }
+    .ncr-stat-sub { font-size: 11px; color: var(--ink-muted); margin-top: 2px; }
+    .ncr-filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 0.75rem; align-items: center; padding: 1rem 0 0.5rem; border-top: 1px solid #e8e8e8; }
+    .ncr-filters label { font-size: 12px; color: var(--ink-muted); margin-right: 2px; }
+    .ncr-filter-btn { font-size: 12px; padding: 5px 12px; border: 1px solid #ddd; border-radius: 8px; background: var(--white); color: var(--ink-soft); cursor: pointer; transition: all 0.15s; }
+    .ncr-filter-btn:hover { background: var(--canvas); }
+    .ncr-filter-btn.on { background: #EEEDFE; border-color: #AFA9EC; color: #3C3489; font-weight: 600; }
+    .ncr-sep { width: 1px; background: #e8e8e8; margin: 0 4px; display: inline-block; height: 14px; vertical-align: middle; }
+    .ncr-count { font-size: 12px; color: var(--ink-muted); margin-bottom: 6px; }
+    .ncr-tbl-wrap { overflow-x: auto; }
+    .ncr-tbl { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .ncr-tbl thead tr { border-bottom: 2px solid #e0e0e0; }
+    .ncr-tbl th { font-size: 11px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.05em; padding: 8px 9px; text-align: left; background: var(--white); cursor: pointer; user-select: none; white-space: nowrap; }
+    .ncr-tbl th:hover { color: var(--ink); }
+    .ncr-tbl td { padding: 8px 9px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; line-height: 1.4; }
+    .ncr-tbl tr:last-child td { border-bottom: none; }
+    .ncr-tbl tr:hover td { background: var(--canvas); }
+    .era { display: inline-block; font-size: 10px; padding: 2px 6px; border-radius: 6px; font-weight: 500; white-space: nowrap; }
+    .e-ancient  { background: #EEEDFE; color: #3C3489; }
+    .e-medieval { background: #FAEEDA; color: #633806; }
+    .e-mughal   { background: #FAECE7; color: #712B13; }
+    .e-modern   { background: #EAF3DE; color: #27500A; }
+    .e-planned  { background: #E1F5EE; color: #085041; }
+    .state-pill { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 6px; font-weight: 500; white-space: nowrap; }
+    .s-delhi   { background: #EEEDFE; color: #3C3489; }
+    .s-haryana { background: #EAF3DE; color: #27500A; }
+    .s-up      { background: #FAEEDA; color: #633806; }
+    .s-raj     { background: #FAECE7; color: #712B13; }
+    .pop-bar, .area-bar { width: 45px; height: 4px; background: #e8e8e8; border-radius: 2px; display: inline-block; vertical-align: middle; margin-right: 4px; }
+    .pop-fill { height: 4px; border-radius: 2px; background: #534AB7; }
+    .area-fill { height: 4px; border-radius: 2px; background: #0F6E56; }
+    .dist-val { font-variant-numeric: tabular-nums; font-weight: 500; color: var(--ink); }
+    .dist-zone { display: inline-block; font-size: 10px; padding: 1px 5px; border-radius: 4px; margin-left: 3px; }
+    .zone-1 { background: #E1F5EE; color: #085041; }
+    .zone-2 { background: #EAF3DE; color: #27500A; }
+    .zone-3 { background: #FAEEDA; color: #633806; }
+    .zone-4 { background: #FAECE7; color: #712B13; }
+    .note-cell { font-size: 11px; color: var(--ink-soft); max-width: 240px; }
+    .area-note { font-size: 10px; color: #aaa; margin-top: 2px; }
+    .ncr-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #eee; }
+    .ncr-legend-label { font-size: 11px; color: var(--ink-muted); font-weight: 600; margin-right: 2px; }
+    .zone-item { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--ink-soft); }
+    .ncr-source { margin-top: 1.25rem; font-size: 11px; color: var(--ink-muted); border-top: 1px solid #eee; padding-top: 1rem; line-height: 1.6; }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────────────────────────── -->
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo" aria-label="Mandala home">
+      <svg class="logo-mark" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <circle cx="14" cy="14" r="12.5" stroke="#3D4F7C" stroke-width="1.5"/>
+        <circle cx="14" cy="14" r="8" stroke="#3D4F7C" stroke-width="1"/>
+        <circle cx="14" cy="14" r="4" stroke="#3D4F7C" stroke-width="1"/>
+        <circle cx="14" cy="14" r="1.5" fill="#3D4F7C"/>
+        <line x1="14" y1="1.5" x2="14" y2="5" stroke="#3D4F7C" stroke-width="1"/>
+        <line x1="14" y1="23" x2="14" y2="26.5" stroke="#3D4F7C" stroke-width="1"/>
+        <line x1="1.5" y1="14" x2="5" y2="14" stroke="#3D4F7C" stroke-width="1"/>
+        <line x1="23" y1="14" x2="26.5" y2="14" stroke="#3D4F7C" stroke-width="1"/>
+      </svg>
+      <span class="logo-text">Mandala</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"
+      onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='true'?'false':'true'); document.getElementById('nav-links').classList.toggle('open');">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links" role="list">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../articles.html" class="active">Articles</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../contact.html" class="nav-cta">Submit</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── ARTICLE HEADER ───────────────────────────────────── -->
+<header class="art-header" style="background:var(--white);border-bottom:1px solid #e8e8e8;padding:3rem 0 2rem;">
+  <div style="max-width:820px;margin-inline:auto;padding-inline:2rem;">
+    <a href="../articles.html" style="display:inline-block;font-size:0.8125rem;font-weight:500;color:#6B7280;margin-bottom:1.5rem;transition:color 0.15s;" onmouseover="this.style.color='#3D4F7C'" onmouseout="this.style.color='#6B7280'">← All articles</a>
+    <p style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#3D4F7C;margin-bottom:1rem;">GIS &amp; Data · Reference</p>
+    <h1 style="font-family:'DM Serif Display',Georgia,serif;font-size:clamp(1.75rem,4vw,2.75rem);line-height:1.15;color:#0F1319;margin-bottom:1.25rem;">NCR Settlements: Size, Population &amp; Distance from Rajiv Chowk</h1>
+    <p style="font-size:1.125rem;color:#3A3F4A;line-height:1.7;max-width:640px;margin-bottom:1.5rem;border-left:3px solid #3D4F7C;padding-left:1.25rem;">An interactive reference table of all 26 major towns and cities within the National Capital Region — sortable by population, city area, road distance from Rajiv Chowk, and historical origin. Filterable by state and distance zone.</p>
+    <div style="font-size:0.875rem;color:#6B7280;display:flex;flex-wrap:wrap;gap:0.3rem;align-items:center;">
+      <span style="font-weight:600;color:#0F1319;">Mandala Data Desk</span>
+      <span style="color:#C9BEA8;">·</span>
+      <span>June 2026</span>
+      <span style="color:#C9BEA8;">·</span>
+      <span>Population: Census of India 2011</span>
+      <span style="color:#C9BEA8;">·</span>
+      <span>Distances: approximate road via fastest route</span>
+    </div>
+  </div>
+</header>
+
+<!-- ── INTERACTIVE TABLE ─────────────────────────────────── -->
+<main>
+  <div class="ncr-wrap" style="padding-top:2.5rem;">
+
+    <!-- Stat cards -->
+    <div class="ncr-overview">
+      <div class="ncr-stat"><div class="ncr-stat-label">Total NCR area</div><div class="ncr-stat-val">55,083</div><div class="ncr-stat-sub">sq km</div></div>
+      <div class="ncr-stat"><div class="ncr-stat-label">Population (2011)</div><div class="ncr-stat-val">5.8 cr</div><div class="ncr-stat-sub">~58 million</div></div>
+      <div class="ncr-stat"><div class="ncr-stat-label">Districts</div><div class="ncr-stat-val">35</div><div class="ncr-stat-sub">incl. 11 in Delhi</div></div>
+      <div class="ncr-stat"><div class="ncr-stat-label">States / UTs</div><div class="ncr-stat-val">4</div><div class="ncr-stat-sub">Delhi · HR · UP · RJ</div></div>
+      <div class="ncr-stat"><div class="ncr-stat-label">GDP (PPP, 2016)</div><div class="ncr-stat-val">$370B</div><div class="ncr-stat-sub">urban agglomeration</div></div>
+    </div>
+
+    <!-- Filters -->
+    <div class="ncr-filters" id="filters">
+      <label>State:</label>
+      <button class="ncr-filter-btn on" data-state="all">All</button>
+      <button class="ncr-filter-btn" data-state="Delhi">Delhi</button>
+      <button class="ncr-filter-btn" data-state="Haryana">Haryana</button>
+      <button class="ncr-filter-btn" data-state="UP">Uttar Pradesh</button>
+      <button class="ncr-filter-btn" data-state="Rajasthan">Rajasthan</button>
+      <span class="ncr-sep"></span>
+      <label>Zone:</label>
+      <button class="ncr-filter-btn" data-zone="1">&lt;30 km</button>
+      <button class="ncr-filter-btn" data-zone="2">30–60 km</button>
+      <button class="ncr-filter-btn" data-zone="3">60–100 km</button>
+      <button class="ncr-filter-btn" data-zone="4">&gt;100 km</button>
+    </div>
+
+    <div class="ncr-count" id="count-row">Showing all 26 major settlements · click column headers to sort</div>
+
+    <!-- Table -->
+    <div class="ncr-tbl-wrap">
+      <table class="ncr-tbl" id="main-table">
+        <thead>
+          <tr>
+            <th onclick="sortBy('rank')">#</th>
+            <th onclick="sortBy('city')">City / town ↕</th>
+            <th onclick="sortBy('state')">State ↕</th>
+            <th onclick="sortBy('pop')">Pop. 2011 ↕</th>
+            <th onclick="sortBy('area')">City area (sq km) ↕</th>
+            <th onclick="sortBy('dist')">Road dist. from Rajiv Chowk ↕</th>
+            <th onclick="sortBy('origin_yr')">Origin ↕</th>
+            <th>Era</th>
+            <th>Character</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- Legend -->
+    <div class="ncr-legend">
+      <div>
+        <span class="ncr-legend-label">Era: </span>
+        <span class="era e-ancient">Ancient (pre-1000 CE)</span>&nbsp;
+        <span class="era e-medieval">Medieval sultanate</span>&nbsp;
+        <span class="era e-mughal">Mughal 1526–1857</span>&nbsp;
+        <span class="era e-modern">Modern organic</span>&nbsp;
+        <span class="era e-planned">Planned township</span>
+      </div>
+      <div style="margin-top:8px;">
+        <span class="ncr-legend-label">Distance zone: </span>
+        <span class="zone-item"><span class="dist-zone zone-1">Z1</span> &lt;30 km · Inner NCR &nbsp;</span>
+        <span class="zone-item"><span class="dist-zone zone-2">Z2</span> 30–60 km · Mid NCR &nbsp;</span>
+        <span class="zone-item"><span class="dist-zone zone-3">Z3</span> 60–100 km · Outer NCR &nbsp;</span>
+        <span class="zone-item"><span class="dist-zone zone-4">Z4</span> &gt;100 km · Far NCR</span>
+      </div>
+    </div>
+
+    <!-- Source note -->
+    <p class="ncr-source">
+      <strong>Sources:</strong> Census of India 2011 · NCRPB · Wikipedia. City area figures refer to the municipal corporation or planning authority boundary, not the wider district. Road distances are approximate via fastest road route from Rajiv Chowk Metro Station (Connaught Place, New Delhi 110001), measured to city/town centre. Population figures for planned sub-cities (Rohini, Dwarka, Narela) are estimates from constituent census zones.
+    </p>
+
+  </div>
+</main>
+
+<!-- ── FOOTER ────────────────────────────────────────────── -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="nav-logo">
+        <svg class="logo-mark" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <circle cx="14" cy="14" r="12.5" stroke="#C9BEA8" stroke-width="1.5"/>
+          <circle cx="14" cy="14" r="8" stroke="#C9BEA8" stroke-width="1"/>
+          <circle cx="14" cy="14" r="4" stroke="#C9BEA8" stroke-width="1"/>
+          <circle cx="14" cy="14" r="1.5" fill="#C9BEA8"/>
+        </svg>
+        <span class="logo-text">Mandala</span>
+      </div>
+      <p>An independent urban planning publication exploring cities, policy, and the built environment across South Asia and beyond.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Sections</h4>
+      <ul>
+        <li><a href="../articles.html">Urban Policy</a></li>
+        <li><a href="../articles.html">Housing</a></li>
+        <li><a href="../articles.html">Transport</a></li>
+        <li><a href="../articles.html">Climate &amp; Cities</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Publication</h4>
+      <ul>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Submit an article</a></li>
+        <li><a href="../contact.html">Subscribe</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Mandala. Published under Creative Commons CC BY 4.0.</p>
+    <p>Built with plain HTML &amp; CSS.</p>
+  </div>
+</footer>
+
+<script>
+const data = [
+  { city:"Delhi (NCT core)", state:"Delhi", pop:11034555, area:1483, area_note:"NCT boundary", dist:2,  dist_note:"CP is within the NCT core", origin_yr:800,   origin:"~800 CE",              era:"e-ancient",  note:"Continuous settlement since Tomar Rajput Anangpal founded Lal Kot. Seven successive cities built on this site over 1,200 years." },
+  { city:"Ghaziabad",         state:"UP",      pop:1729000, area:210,  area_note:"municipal corp.", dist:26, dist_note:"via NH24/NH58",           origin_yr:1740, origin:"1740 CE",              era:"e-mughal",   note:"Founded as Ghaziuddin Nagar by Mughal minister Ghaziuddin. 'Gateway of UP'. Major industrial and residential hub." },
+  { city:"Faridabad",         state:"Haryana", pop:1404653, area:204,  area_note:"municipal corp.", dist:28, dist_note:"via NH19/Mathura Rd",      origin_yr:1607, origin:"1607 CE",              era:"e-mughal",   note:"Founded by Sheikh Farid Bukhari, treasurer of Jahangir. Most populous city in Haryana. Heavy industrial base." },
+  { city:"Meerut",            state:"UP",      pop:1305429, area:450,  area_note:"metropolis",      dist:72, dist_note:"via NH58/Meerut Expwy",    origin_yr:-250, origin:"~250 BCE",             era:"e-ancient",  note:"One of India's oldest continuously inhabited cities. Sparked the 1857 uprising. Sports goods capital of India." },
+  { city:"Noida",             state:"UP",      pop:637272,  area:203,  area_note:"NOIDA authority", dist:19, dist_note:"via DND Flyway/NH24",      origin_yr:1976, origin:"17 Apr 1976",          era:"e-planned",  note:"New Okhla Industrial Development Area. Created during the Emergency to decongest Delhi. IT and media hub." },
+  { city:"Gurgaon (Gurugram)",state:"Haryana", pop:876969,  area:732,  area_note:"district city",   dist:30, dist_note:"via NH48/Expressway",      origin_yr:-500, origin:"Ancient; modern post-1990", era:"e-ancient", note:"Village of Guru Dronacharya per Mahabharata. Transformed into India's corporate capital from the 1990s." },
+  { city:"Rohini (sub-city)", state:"Delhi",   pop:800000,  area:65,   area_note:"DDA sub-city",    dist:18, dist_note:"via Rohtak Rd/Ring Rd",    origin_yr:1983, origin:"1983 (DDA project)",   era:"e-planned",  note:"First of three DDA mega sub-cities. One of Asia's largest planned residential townships." },
+  { city:"Dwarka (sub-city)", state:"Delhi",   pop:600000,  area:56,   area_note:"DDA sub-city",    dist:18, dist_note:"via Dwarka Expressway",    origin_yr:1990, origin:"1990 (DDA Master Plan)", era:"e-planned", note:"Second DDA sub-city, near IGI Airport. 29 sectors. Second Diplomatic Enclave approved 2017." },
+  { city:"Loni",              state:"UP",      pop:516082,  area:27,   area_note:"municipal area",  dist:22, dist_note:"via Wazirabad Rd",         origin_yr:1900, origin:"Pre-modern village",    era:"e-modern",   note:"Rapidly growing urban fringe town in Ghaziabad district. Part of original 1962 Delhi Metropolitan Area." },
+  { city:"Muzaffarnagar",     state:"UP",      pop:392768,  area:58,   area_note:"municipal area",  dist:128, dist_note:"via NH58/Expwy",          origin_yr:1633, origin:"~1633 CE",             era:"e-mughal",   note:"Named after Mughal governor Muzaffar Khan. Important sugar-producing region. Added to NCR in 2015." },
+  { city:"Rohtak",            state:"Haryana", pop:374292,  area:139,  area_note:"municipal corp.", dist:70, dist_note:"via NH10/Rohtak Rd",       origin_yr:-500, origin:"Ancient; pre-medieval fort", era:"e-ancient", note:"Said to be founded by Raja Rohtas (Panwar Rajput). Major grain and cotton hub." },
+  { city:"Alwar",             state:"Rajasthan",pop:341422, area:146,  area_note:"municipal area",  dist:155, dist_note:"via NH48/NH248A",         origin_yr:1049, origin:"1049 CE",              era:"e-medieval", note:"Founded by Rao Raja Pratap Singh. Capital of Alwar princely state. Southernmost major NCR city." },
+  { city:"Narela (sub-city)", state:"Delhi",   pop:500000,  area:99,   area_note:"DDA sub-city",    dist:35, dist_note:"via NH44/GT Road",         origin_yr:1980, origin:"Ancient; DDA dev. 1980s", era:"e-planned", note:"Third DDA sub-city. Harappan-era artifacts at nearby Bhorgarh. Industrial estate from 1983." },
+  { city:"Panipat",           state:"Haryana", pop:294292,  area:26,   area_note:"municipal area",  dist:90, dist_note:"via NH44/GT Road",         origin_yr:-1000, origin:"Ancient (Mahabharata era)", era:"e-ancient", note:"Site of three decisive battles: 1526, 1556, and 1761. 'City of Weavers'." },
+  { city:"Sonipat",           state:"Haryana", pop:259128,  area:181,  area_note:"municipal corp.", dist:48, dist_note:"via NH44/GT Road",         origin_yr:-1000, origin:"Ancient (Mahabharata era)", era:"e-ancient", note:"Ancient name Sonprastha / Svarnaprastha (Golden City). One of five towns demanded by the Pandavas." },
+  { city:"Karnal",            state:"Haryana", pop:286934,  area:52,   area_note:"municipal area",  dist:125, dist_note:"via NH44/GT Road",        origin_yr:-1000, origin:"Ancient; named after Karna", era:"e-ancient", note:"Named after Mahabharata hero Karna. Major agricultural research centre on the GT Road." },
+  { city:"Greater Noida",     state:"UP",      pop:185000,  area:380,  area_note:"GNIDA authority", dist:38, dist_note:"via Yamuna Expressway",    origin_yr:1991, origin:"28 Jan 1991",          era:"e-planned",  note:"Planned extension of Noida. F1 circuit, university campuses, wide road grid." },
+  { city:"Bulandshahr",       state:"UP",      pop:235310,  area:72,   area_note:"municipal area",  dist:64, dist_note:"via NH34",                 origin_yr:-1200, origin:"Ancient; pre-12th c.", era:"e-ancient",  note:"Founded by King Ahibaran. Ancient ruins across district. Known as Baran before renaming." },
+  { city:"Bharatpur",         state:"Rajasthan",pop:252659, area:157,  area_note:"municipal area",  dist:178, dist_note:"via NH21/Agra Rd",        origin_yr:1733, origin:"1733 CE",              era:"e-mughal",   note:"Founded by Jat king Suraj Mal. Famous Keoladeo Bird Sanctuary. Added to NCR July 2013." },
+  { city:"Bahadurgarh",       state:"Haryana", pop:168000,  area:24,   area_note:"municipal area",  dist:28, dist_note:"via NH9/Rohtak Rd",        origin_yr:1700, origin:"Mughal era (18th c.)", era:"e-mughal",   note:"Industrial town in Jhajjar district. Part of original 1962 Delhi Metropolitan Area." },
+  { city:"Bhiwani",           state:"Haryana", pop:175000,  area:62,   area_note:"municipal area",  dist:110, dist_note:"via NH148B",              origin_yr:-500, origin:"Ancient Rajput settlement", era:"e-ancient", note:"'Chhoti Kashi' for its many temples. Added to NCR 2013. Named after Rajput chieftain Bhani Devi." },
+  { city:"Hapur",             state:"UP",      pop:211983,  area:35,   area_note:"municipal area",  dist:55, dist_note:"via NH34",                 origin_yr:1200, origin:"Pre-modern trading town", era:"e-medieval", note:"Historically a grain and jaggery trading town. Formed as separate district from Ghaziabad in 2011." },
+  { city:"Rewari",            state:"Haryana", pop:155000,  area:30,   area_note:"municipal area",  dist:80, dist_note:"via NH48/NH919",           origin_yr:-500, origin:"Ancient",               era:"e-ancient",  note:"Ancient trade town, SW of Delhi. Part of original 1985 NCR Act. Key rail junction." },
+  { city:"Jind",              state:"Haryana", pop:166000,  area:35,   area_note:"municipal area",  dist:140, dist_note:"via NH352/NH709",         origin_yr:-1000, origin:"Ancient (Mahabharata era)", era:"e-ancient", note:"Named after Mahabharata's Jayadratha. Sikh princely state capital. Added to NCR June 2015." },
+  { city:"Shamli",            state:"UP",      pop:107233,  area:14,   area_note:"municipal area",  dist:102, dist_note:"via NH58/NH709",          origin_yr:-500, origin:"Ancient Jat settlement", era:"e-ancient",  note:"Ancient market town in Doab region. Sugar industry hub. Added to NCR December 2017." },
+  { city:"Mahendragarh (Narnaul)", state:"Haryana", pop:79000, area:18, area_note:"municipal area", dist:135, dist_note:"via NH48/NH148B",         origin_yr:1400, origin:"Pre-Mughal; fortified 16th c.", era:"e-medieval", note:"Centre of trade under Sher Shah Suri. Birthplace of Hemu (fought Akbar at Panipat 1556)." },
+];
+
+const maxPop = Math.max(...data.map(r=>r.pop));
+const maxArea = Math.max(...data.map(r=>r.area));
+let activeState = "all", activeZone = null, sortCol = "pop", sortAsc = false;
+
+function zoneNum(d){return d<30?1:d<60?2:d<100?3:4;}
+function zoneLabel(d){return["Z1","Z2","Z3","Z4"][zoneNum(d)-1];}
+function zoneClass(d){return"zone-"+zoneNum(d);}
+function stateClass(s){return{Delhi:"s-delhi",Haryana:"s-haryana",UP:"s-up",Rajasthan:"s-raj"}[s]||"s-delhi";}
+function eraLabel(e){return{"e-ancient":"Ancient","e-medieval":"Medieval","e-mughal":"Mughal","e-british":"British","e-modern":"Modern","e-planned":"Planned"}[e]||e;}
+function fmtPop(n){if(n>=10000000)return(n/10000000).toFixed(1)+" cr";if(n>=100000)return(n/100000).toFixed(1)+" L";return n.toLocaleString("en-IN");}
+function fmtArea(n){if(n>=1000)return(n/1000).toFixed(2)+"k";return n.toLocaleString("en-IN");}
+
+function render(){
+  let rows=[...data];
+  if(activeState!=="all") rows=rows.filter(r=>r.state===activeState);
+  if(activeZone) rows=rows.filter(r=>zoneNum(r.dist)===activeZone);
+  rows.sort((a,b)=>{let va=a[sortCol],vb=b[sortCol];if(typeof va==="string"){va=va.toLowerCase();vb=vb.toLowerCase();}return sortAsc?(va>vb?1:-1):(va<vb?1:-1);});
+  document.getElementById("count-row").textContent=`Showing ${rows.length} settlement${rows.length!==1?"s":""}${activeState!=="all"?" in "+activeState:""}${activeZone?" · Zone "+activeZone:""} · click column headers to sort`;
+  document.getElementById("tbody").innerHTML=rows.map((r,i)=>{
+    const pBarW=Math.round((r.pop/maxPop)*100);
+    const aBarW=Math.round((r.area/maxArea)*100);
+    return`<tr>
+      <td style="color:#bbb;font-size:11px">${i+1}</td>
+      <td style="font-weight:600;min-width:130px">${r.city}</td>
+      <td><span class="state-pill ${stateClass(r.state)}">${r.state}</span></td>
+      <td style="white-space:nowrap"><div style="display:flex;align-items:center;gap:3px"><div class="pop-bar"><div class="pop-fill" style="width:${pBarW}%"></div></div><span style="font-variant-numeric:tabular-nums;font-size:12px">${fmtPop(r.pop)}</span></div></td>
+      <td style="white-space:nowrap"><div style="display:flex;align-items:center;gap:3px"><div class="area-bar"><div class="area-fill" style="width:${aBarW}%"></div></div><span style="font-variant-numeric:tabular-nums;font-size:12px;font-weight:500">${fmtArea(r.area)}</span></div><div class="area-note">${r.area_note}</div></td>
+      <td style="white-space:nowrap"><span class="dist-val">${r.dist} km</span><span class="dist-zone ${zoneClass(r.dist)}">${zoneLabel(r.dist)}</span><div style="font-size:10px;color:#aaa;margin-top:1px">${r.dist_note}</div></td>
+      <td style="font-size:12px;white-space:nowrap">${r.origin}</td>
+      <td><span class="era ${r.era}">${eraLabel(r.era)}</span></td>
+      <td class="note-cell">${r.note}</td>
+    </tr>`;
+  }).join("");
+}
+
+function sortBy(col){if(sortCol===col)sortAsc=!sortAsc;else{sortCol=col;sortAsc=col!=="pop"&&col!=="area"&&col!=="dist";}render();}
+
+document.getElementById("filters").addEventListener("click",e=>{
+  const btn=e.target.closest(".ncr-filter-btn");
+  if(!btn) return;
+  if(btn.dataset.state){document.querySelectorAll("[data-state]").forEach(b=>b.classList.remove("on"));btn.classList.add("on");activeState=btn.dataset.state;}
+  if(btn.dataset.zone){const z=parseInt(btn.dataset.zone);if(activeZone===z){activeZone=null;btn.classList.remove("on");}else{document.querySelectorAll("[data-zone]").forEach(b=>b.classList.remove("on"));btn.classList.add("on");activeZone=z;}}
+  render();
+});
+
+render();
+</script>
+
+</body>
+</html>
